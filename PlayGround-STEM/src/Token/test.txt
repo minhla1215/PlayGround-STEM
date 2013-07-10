@@ -1,0 +1,46 @@
+Crafting
+•	Crafting is the method by which many blocks, tools, and materials are made in Minecraft. In order to craft something, players must move items from their inventory to a crafting grid. A 2×2 crafting grid can be accessed from the player's inventory. A 3×3 grid can be accessed by right-clicking a Crafting Table.
+•	For some items, the arrangement of their ingredients on the crafting grid is unimportant. These are commonly known as shapeless recipes. For example, a Fermented spider eye can have its ingredients placed anywhere within the grid.
+•	On the other hand, many of the more important or useful game objects must have their ingredients placed in the correct relative positions on the crafting grid. Even then, provided the resources are arranged correctly, the item can be made in any way that fits in the grid. For example, a 3×1 recipe, such as bread, can be made using the top, middle, or bottom row of the 3×3 grid, but it cannot be made using the 2×2 grid because it needs to be three items wide. Ingredients in 'shaped' recipes can be 'slid' up, down, left, or right. They can also be flipped horizontally. For instance, players can make a bow with the strings placed on the right instead of on the left.
+•	Players always have access to the 2×2 crafting grid from their Inventory screen, and this can be used whenever the screen is brought up. Crafting recipes that are at most 2×2 can always be made there. These include wood planks, sticks, and crafting tables. To craft items using a 3×3 grid, create a crafting table, place it in any convenient spot, and right-click it. This brings up a pop-up screen with a 3×3 grid on which the player can assemble any crafting recipe in the game.
+•	 2×2 crafting grid (inventory)
+•	 3×3 crafting grid (Crafting Table)
+•	 Pocket Edition crafting system (MATTIS)	
+•	MATTIS
+o	In the Pocket Edition, crafting is somewhat different and uses the Minecraft Advanced Touch Technology Interface System (MATTIS) crafting system. Rather than having 2×2 and 3×3 grids, there are four categories down the left: Blocks, Tools, Food & Armor, and Decoration. Tapping on each category brings up a list of items/blocks that are craftable from that menu. For each item, there is an area that lists the requirements. The first number is the amount of material collected; the second is the amount required. There is an item description under each item that says what the item is used for. All the player has to do is tap the desired item the same number of times as the desired number of that item. The newly created items show up in the inventory. Crafting is currently limited to survival mode only in PE, and is currently limited to a very small number of options.
+o	The player has the option to use a crafting table to give him/her many more choices. The player must first craft a crafting table. After the player taps the crafting table, the MATTIS pops up with crafting options. To craft bricks, stone bricks, stone-based slabs, or stone-based stairs, the player should build a Stonecutter.
+•	XBOX 360 crafting System
+o	The Xbox 360 Edition uses a simplified crafting system. It does not make use of the standard crafting interface, but still has similarities to the PC version's 2×2 and 3×3 crafting grids, making it a cross between the PC grid-based system and the Pocket Edition's MATTIS system. The interface does not require the player to place items in the correct place in a crafting menu, but instead simply displays the ingredients required to craft the selected item and allows the player to craft that item so long as the player has the required crafting ingredients. The crafting table orders all craftable items into eight categories: Structures, Tools, Weapons, Food, Armor, Mechanisms, Transportation, and Decoration.
+o	Pressing  opens the 2×2 crafting menu. The Armor tab is missing here as crafting any armor requires the use of a 3×3 crafting grid.
+•	Item Navigation
+o	Certain crafted items, like weapons, tools, and armor, have an item durability. Such items have a limited number of uses, after which they will break. Items made of harder materials such as iron or diamond will last longer, while those made of softer materials such as wood or gold will wear out more quickly. A small damage bar below each item shows roughly how much longer it will last before breaking. (Pressing F3+H will make exact durabilities appear in the player's inventory tooltips.) Partially worn-out items can be repaired. The item repair process works by combining two damaged items to create a less-damaged one, an
+o	d usually gives a small efficiency bonus compared to simply using items until they break.A use counts only if a player completely breaks apart one block or hits a mob. If a block is only partially broken, this does not count as a use.
+?	1. Using a shovel, pickaxe, or axe on a mob (hostile, neutral, or farm animal) counts as two uses.
+?	2. Using a sword on any mob or animal counts as one use.
+?	3. Using a hoe on any mob or animal counts as zero uses.
+?	4. Using a shovel, pickaxe, or axe to break a block counts as one use.
+?	5. Using a sword to break a block counts as two uses.
+?	6. Using a hoe to break blocks counts as zero uses
+o	Proper use of tools will maximize their durability. Assuming a player uses a tool appropriately, the following list shows the maximum durability for tools of each material type:
+?	Wood - 60 uses
+?	Stone - 132 uses
+?	Iron - 251 uses
+?	Gold - 33 uses
+?	Diamond - 1,562 uses
+o	Note that even though gold tools have very low durability, they are the fastest among all the tools with no enchantments. However even with gold tools high efficiency, gold swords only have the same attack strength as wood swords.
+o	The amount of protection given by a piece of armor depends only on the material it is made of, and is not affected by the armor's remaining durability.
+•	Complete recipe List
+o	Currently, there are:
+?	6 Basic recipes
+?	23 Manufactured recipes
+?	10 Transportation recipes
+?	13 Tool recipes
+?	3 Weapon recipes
+?	4 Armor recipes
+?	20 Mechanism recipes
+?	12 Food recipes
+?	19 Miscellaneous recipes
+?	12 Dye recipes
+?	15 Wool recipes
+?	9 Enchantment and brewing recipes
+o	This totals to 146 Crafting Recipes, excluding Firework recipes.
