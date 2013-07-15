@@ -17,9 +17,12 @@ def removePuncAndNum(tokens):
     for i, token in enumerate(tokens):
         tokens[i] = punctuation.sub("", token)
         
-        if token == "'s":
+        if tokens[i] == "'s":
             tokens.pop(i)
             i -= 1
+        if tokens[i] == '':
+            tokens.pop(i)
+            i-=1
     return tokens
 
 #Takes in a doc and returns the tokens
@@ -38,6 +41,7 @@ def openFile(text,filename):
         if len(testline) == 0:
             break
         text += testline
+    f.close();
     return text
 
 def openURL(text, url):
@@ -50,6 +54,8 @@ def openURL(text, url):
 
 def crawlURL(s_list,url):
     try:
+        if(len(s_list) > 50):
+            return
         root = lxml.html.fromstring(urllib.urlopen(url).read())
         links = root.cssselect("a")
         print "went in recursively " + url
@@ -68,8 +74,6 @@ def crawlURL(s_list,url):
                 #print working_link + "   " + test_link
                 if(working_link not in s_list or len(s_list) == 0):
                     s_list.append(working_link)
-                    if(len(s_list) > 50):
-                        break
                     crawlURL(s_list, working_link)
         return s_list          
     except Exception, e:
@@ -94,28 +98,50 @@ try:
     print len(site_list)
 except Exception, e:
     print e
-'''
-for s in site_list:
-    print s
-'''
 
         
 #------------------MAIN---------------------------------------------
 
 url_text = ""
 url_tokens = None
+#load the long list of text or makei t
 try:
-    if os.path.exists("url_tokens.txt"):
-        url_tokens = pickle.load(open("url_tokens.txt","rb"))
+    if os.path.exists("url_text.txt"):
+        #url_text = pickle.load(open("url_text.txt","rb"))
+        url_text = pickle.load(open("url_text.txt","rb"))
         print("read")
     else:
         for site in site_list:
             url_text = openURL(url_text, site)
-        url_tokens=tokenize(url_text)
-        pickle.dump(url_text,open("url_tokens.txt","wb"))
+        pickle.dump(url_text,open("url_text.txt","wb"))
 except Exception, e:
     print e
-print [(url_tokens.count(item), item) for item in sorted(set(url_tokens)) if url_tokens.count(item) > 100]
+
+#load the tokens or make it
+
+try:
+        url_tokens = tokenize(url_text)
+        url_bitokens = bigrams(url_tokens)
+        url_tritokens = trigrams(url_tokens)
+        fout = open("wikipedia_tokens.csv",'wb')
+        for item in sorted(set(url_tokens)):
+            if url_tokens.count(item) > 100:
+                fout.write(item + "," + str(url_tokens.count(item)) + "\n")
+        fout.close()
+        fout = open("wikipedia_bitokens.csv",'wb')
+        for item in sorted(set(url_bitokens)):
+            if url_bitokens.count(item) > 80:
+                fout.write(str(item) + "," + str(url_bitokens.count(item)) + "\n")
+        fout.close()
+        fout = open("wikipedia_tritokens.csv",'wb')
+        for item in sorted(set(url_tritokens)):
+            if url_tritokens.count(item) > 60:
+                fout.write(str(item) + "," + str(url_tritokens.count(item)) + "\n")
+        fout.close()
+except Exception, e:
+    print e
+
+#print [(url_tokens.count(item), item) for item in sorted(set(url_tokens)) if url_tokens.count(item) > 100]
 
 doc_text = ""
 doc_text = openFile(doc_text,filename)
