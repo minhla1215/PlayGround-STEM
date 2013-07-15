@@ -8,6 +8,8 @@ import urllib
 import pickle
 import os
 
+from BinarySearch import binarySearch
+
 #----------------------------------functions-------------------------------------
 
 #Takes in a list of tokens and remove punctuation and numbers
@@ -104,6 +106,7 @@ except Exception, e:
 
 url_text = ""
 url_tokens = None
+
 #load the long list of text or makei t
 try:
     if os.path.exists("url_text.txt"):
@@ -116,9 +119,13 @@ try:
         pickle.dump(url_text,open("url_text.txt","wb"))
 except Exception, e:
     print e
-
-#load the tokens or make it
-
+    
+tokens = tokenize(url_text)
+print "done tokenize"
+found = binarySearch("alpha",sorted(set(tokens)))
+print found
+'''
+#create the tokens
 try:
         url_tokens = tokenize(url_text)
         url_bitokens = bigrams(url_tokens)
@@ -140,18 +147,5 @@ try:
         fout.close()
 except Exception, e:
     print e
+'''
 
-#print [(url_tokens.count(item), item) for item in sorted(set(url_tokens)) if url_tokens.count(item) > 100]
-
-doc_text = ""
-doc_text = openFile(doc_text,filename)
-tokens = tokenize(doc_text)
-bi_tokens = bigrams(tokens)
-tri_tokens = trigrams(tokens)
-
-#print [(item,tokens.count(item)) for item in tokens if tokens.count(item) > 10]
-sorted_Bi_Tokens = sorted(set(bi_tokens))
-sorted_Tri_Tokens = sorted(set(tri_tokens))
-#print [(tokens.count(item), item) for item in sorted(set(tokens)) if tokens.count(item) > 5]
-#print [(sorted_Bi_Tokens.count(item), item) for item in sorted_Bi_Tokens if sorted_Bi_Tokens.count(item) > 0]
-#print [(sorted_Tri_Tokens.count(item), item) for item in sorted_Tri_Tokens if sorted_Tri_Tokens.count(item) > 0]
