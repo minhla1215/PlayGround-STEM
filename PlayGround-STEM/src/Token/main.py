@@ -1,17 +1,19 @@
+import lxml.html
 import nltk
 from nltk import bigrams
 from nltk import trigrams
 from nltk.corpus import stopwords
 import re
 import urllib
+import pickle
+import os
 
-#test test test
-filename = "test.txt"
+#----------------------------------functions-------------------------------------
 
 #Takes in a list of tokens and remove punctuation and numbers
 #Return a list of tokens
 def removePuncAndNum(tokens):   
-    punctuation = re.compile(r'[-.?!,":;()|0-9]') 
+    punctuation = re.compile(r'[-?!,":;()|0-9]') 
     for i, token in enumerate(tokens):
         tokens[i] = punctuation.sub("", token)
         
@@ -29,8 +31,7 @@ def tokenize(s):
 
 #Opens the file and return string of text
 #return string
-def openFile(filename):
-    text = " "
+def openFile(text,filename):
     f = open(filename,'r')
     while True:
         testline = f.readline()
@@ -39,36 +40,92 @@ def openFile(filename):
         text += testline
     return text
 
+def openURL(text, url):
+    try:
+        html = urllib.urlopen(url).read()
+        text += str(nltk.clean_html(html))
+        return text
+    except Exception, e:
+        print e
+
+def crawlURL(s_list,url):
+    try:
+        root = lxml.html.fromstring(urllib.urlopen(url).read())
+        links = root.cssselect("a")
+        print "went in recursively " + url
+        for link in links:
+            test_link = str(link.get('href'))
+            if(test_link.find("/wiki/") != -1 and test_link.find("wikipedia") == -1 and \
+               test_link.find("/User:") == -1 and test_link.find("/File:") == -1 and \
+               test_link.find("/User_talk:") == -1 and test_link.find("/Special") == -1 and \
+               test_link.find("/Minecraft_Wiki") == -1 and test_link.find("/Template") == -1 and \
+               test_link.find("/Version_history") == -1 and test_link.find("/Minecraft_Wiki_talk") == -1 and \
+               test_link.find("/Category") == -1 and test_link.find("/Mods") == -1 and \
+               test_link.find("/.minecraft") == -1 and test_link.find("/MediaWiki:") == -1 and \
+               test_link.find("/MediaWiki_Talk:") == -1 and test_link.find("/Talk") == -1 and \
+               test_link.find("/Upcoming_features") == -1):
+                working_link = base_link + test_link
+                #print working_link + "   " + test_link
+                if(working_link not in s_list or len(s_list) == 0):
+                    s_list.append(working_link)
+                    if(len(s_list) > 50):
+                        break
+                    crawlURL(s_list, working_link)
+        return s_list          
+    except Exception, e:
+        print e
+        pass  
+    
+#---------------------------End of Function-----------------------------------    
+    
+#Files and site to scrap
+filename = "test.txt"
+wiki = "http://www.minecraftwiki.net/wiki/Minecraft_Wiki"
+base_link = "http://www.minecraftwiki.net"
+site_list = []
+
+#If the list of URL exists, open it. If not, create it
+try:
+    if os.path.exists("site_list.txt"):
+        site_list = pickle.load(open("site_list.txt","rb"))
+    else:
+        site_list = crawlURL(site_list,wiki)
+        pickle.dump(site_list,open("site_list.txt","wb"))
+    print len(site_list)
+except Exception, e:
+    print e
+'''
+for s in site_list:
+    print s
+'''
 
         
 #------------------MAIN---------------------------------------------
-html = urllib.urlopen("http://www.minecraftwiki.net/wiki/Blocks").read()
-text2 = nltk.clean_html(html)
-tokens2=tokenize(text2)
-print [(tokens2.count(item), item) for item in sorted(set(tokens2)) if tokens2.count(item) > 5]
 
-text = openFile(filename)
-tokens = tokenize(text)
+url_text = ""
+url_tokens = None
+try:
+    if os.path.exists("url_tokens.txt"):
+        url_tokens = pickle.load(open("url_tokens.txt","rb"))
+        print("read")
+    else:
+        for site in site_list:
+            url_text = openURL(url_text, site)
+        url_tokens=tokenize(url_text)
+        pickle.dump(url_text,open("url_tokens.txt","wb"))
+except Exception, e:
+    print e
+print [(url_tokens.count(item), item) for item in sorted(set(url_tokens)) if url_tokens.count(item) > 100]
+
+doc_text = ""
+doc_text = openFile(doc_text,filename)
+tokens = tokenize(doc_text)
 bi_tokens = bigrams(tokens)
 tri_tokens = trigrams(tokens)
 
 #print [(item,tokens.count(item)) for item in tokens if tokens.count(item) > 10]
 sorted_Bi_Tokens = sorted(set(bi_tokens))
 sorted_Tri_Tokens = sorted(set(tri_tokens))
-print [(tokens.count(item), item) for item in sorted(set(tokens)) if tokens.count(item) > 5]
-print [(sorted_Bi_Tokens.count(item), item) for item in sorted_Bi_Tokens if sorted_Bi_Tokens.count(item) > 0]
-print [(sorted_Tri_Tokens.count(item), item) for item in sorted_Tri_Tokens if sorted_Tri_Tokens.count(item) > 0]
-
-'''
-text="""This is a test for the trigram. I do not know what it is doing"""
-# split the texts into tokens
-tokens = nltk.word_tokenize(text)
-tokens = [token.lower() for token in tokens if len(token) > 1] #same as unigrams
-bi_tokens = bigrams(tokens)
-tri_tokens = trigrams(tokens)
-
-# print trigrams count
-
-print [(item, bi_tokens.count(item)) for item in sorted(set(bi_tokens))]
-print [(item, tri_tokens.count(item)) for item in sorted(set(tri_tokens))]
-'''
+#print [(tokens.count(item), item) for item in sorted(set(tokens)) if tokens.count(item) > 5]
+#print [(sorted_Bi_Tokens.count(item), item) for item in sorted_Bi_Tokens if sorted_Bi_Tokens.count(item) > 0]
+#print [(sorted_Tri_Tokens.count(item), item) for item in sorted_Tri_Tokens if sorted_Tri_Tokens.count(item) > 0]
